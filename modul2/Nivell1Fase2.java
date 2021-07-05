@@ -18,11 +18,13 @@ public class Nivell1Fase2 {
 		nom.add('S');
 		nom.add('I');
 		
+		String vocals = "aeiouAEIOU";
+		String numeros = "0123456789";
+		
 		for(char c: nom) {
-			if(c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') {
+			if(vocals.contains(Character.toString(c))) {
 				System.out.println(c + " VOCAL");
-			} else if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || 
-					c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
+			} else if(numeros.contains(Character.toString(c))) {
 				System.out.println(c + " Els noms de les persones no contenen números!");
 			} else if(c == ' ' ) {
 				System.out.println(" ");
@@ -34,3 +36,4 @@ public class Nivell1Fase2 {
 	}
 	
 }
+
