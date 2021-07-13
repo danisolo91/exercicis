@@ -7,10 +7,10 @@ import com.jobs.persistence.EmployeeRepository;
 
 public class JobsController {
 
-	private EmployeeRepository repository = new EmployeeRepository();
+	private EmployeeRepository repository;
 
 	public JobsController() {
-
+		this.repository = new EmployeeRepository();
 	}
 
 	public void createBossEmployee(String name, String address, String phone, double salaryPerMonth) throws Exception {
