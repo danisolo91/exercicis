@@ -23,8 +23,8 @@ public class Employee extends AbsStaffMember {
 		this.paymentRate = paymentRate;
 		this.irpf = IRPF;
 		this.grossSalaryPerMonth = grossSalaryPerMonth;
-		this.grossSalaryPerYear = grossSalaryPerMonth * PAYMENTS;
-		this.netSalaryPerMonth = grossSalaryPerMonth - (grossSalaryPerMonth * (irpf / 100));
+		grossSalaryPerYear = grossSalaryPerMonth * PAYMENTS;
+		netSalaryPerMonth = grossSalaryPerMonth - (grossSalaryPerMonth * (irpf / 100));
 		netSalaryPerYear = grossSalaryPerYear - (grossSalaryPerYear * (irpf / 100));
 		bonus = 0;
 	}
