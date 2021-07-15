@@ -2,9 +2,8 @@ package com.jobs.domain;
 
 public class Employee extends AbsStaffMember {
 
-	private final static int PAYMENTS = 14; // nº de pagaments a l'any
 	private final static double BONUS = 0.1;
-	private double irpf;
+	protected final static int PAYMENTS = 14; // nº de pagaments a l'any
 	protected double grossSalaryPerMonth;
 	protected double grossSalaryPerYear;
 	protected double netSalaryPerMonth;
@@ -12,8 +11,8 @@ public class Employee extends AbsStaffMember {
 	protected double bonus;
 	protected IPaymentRate paymentRate;
 
-	public Employee(String name, String address, String phone, double grossSalaryPerMonth, IPaymentRate paymentRate,
-			double IRPF) throws Exception {
+	public Employee(String name, String address, String phone, double grossSalaryPerMonth, IPaymentRate paymentRate)
+			throws Exception {
 		super(name, address, phone);
 		if (grossSalaryPerMonth < 0)
 			throw new Exception();
@@ -21,11 +20,7 @@ public class Employee extends AbsStaffMember {
 			throw new Exception();
 
 		this.paymentRate = paymentRate;
-		this.irpf = IRPF;
 		this.grossSalaryPerMonth = grossSalaryPerMonth;
-		grossSalaryPerYear = grossSalaryPerMonth * PAYMENTS;
-		netSalaryPerMonth = grossSalaryPerMonth - (grossSalaryPerMonth * (irpf / 100));
-		netSalaryPerYear = grossSalaryPerYear - (grossSalaryPerYear * (irpf / 100));
 		bonus = 0;
 	}
 
