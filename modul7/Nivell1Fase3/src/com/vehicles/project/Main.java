@@ -10,18 +10,18 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		int tipusVehicle;
+		int vehicleType;
 
 		// SELECCIONAR TIPUS VEHICLE
 		do {
 			System.out.println("Quin tipus de vehicle vols crear?");
 			System.out.println("1) Cotxe");
 			System.out.println("2) Moto");
-			tipusVehicle = SCAN.nextInt();
+			vehicleType = SCAN.nextInt();
 			SCAN.nextLine(); // throw away the \n not consumed by nextInt()
-		} while (tipusVehicle != 1 && tipusVehicle != 2);
+		} while (vehicleType != 1 && vehicleType != 2);
 
-		if (tipusVehicle == 1) {
+		if (vehicleType == 1) {
 			Car car = createCar();
 			System.out.println(car);
 		} else {
@@ -114,7 +114,7 @@ public class Main {
 		System.out.println("RODA DAVANTERA:");
 		Wheel frontWheel = createWheel();
 
-		// AFEGIR RODES AL COTXE
+		// AFEGIR RODES A LA MOTO
 		bike.addWheels(frontWheel, backWheel);
 
 		return bike;
