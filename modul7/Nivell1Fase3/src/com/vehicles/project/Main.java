@@ -107,14 +107,14 @@ public class Main {
 
 		bike = new Bike(plate, brand, color);
 
-		// CREAR RODES 
+		// CREAR RODES
 		System.out.println("RODA TRASERA:");
 		Wheel backWheel = createWheel();
 
 		System.out.println("RODA DAVANTERA:");
 		Wheel frontWheel = createWheel();
 
-		// AFEGIR RODES AL COTXE 
+		// AFEGIR RODES AL COTXE
 		bike.addWheels(frontWheel, backWheel);
 
 		return bike;
