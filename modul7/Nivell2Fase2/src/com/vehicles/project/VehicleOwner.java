@@ -16,10 +16,7 @@ public class VehicleOwner extends Person {
 			throw new Exception("El titular ha de ser major d'edat (18 anys).");
 		if (drivingLicense == null)
 			throw new Exception("El titular ha de tenir llicència de conduir.");
-		
-		this.firstname = firstname;
-		this.lastname = lastname;
-		this.birthDate = birthDate;
+			
 		this.drivingLicense = drivingLicense;
 		this.hasCarInsurance = hasCarInsurance;
 		this.hasGarage = hasGarage;
