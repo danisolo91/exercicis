@@ -9,19 +9,21 @@ public class User {
 	private String firstname;
 	private String lastname;
 	private String password;
-	private Date regitrationDate;
+	private Date registrationDate;
 
 	private static int COUNTER = 1;
 
 	public User() {
 	}
 
-	public User(String username, String firstname, String lastname, String password) {
+	public User(String username, String firstname, String lastname, String password) throws Exception {
+		if(username.isBlank() || firstname.isBlank() || lastname.isBlank() || password.isBlank())
+			throw new Exception("--> T'has deixat algún camp en blanc. <--");
 		this.username = username;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.password = password;
-		this.regitrationDate = new Date();
+		this.registrationDate = new Date();
 
 		id = COUNTER;
 		COUNTER++;
@@ -34,7 +36,7 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
@@ -67,17 +69,17 @@ public class User {
 		this.password = password;
 	}
 
-	public Date getRegitrationDate() {
-		return regitrationDate;
+	public Date getRegistrationDate() {
+		return registrationDate;
 	}
 
-	public void setRegitrationDate(Date regitrationDate) {
-		this.regitrationDate = regitrationDate;
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", firstname=" + firstname + ", lastname=" + lastname
-				+ ", password=" + password + ", regitrationDate=" + regitrationDate + "]";
+				+ ", password=" + password + ", registrationDate=" + registrationDate + "]";
 	}
 }

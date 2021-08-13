@@ -13,10 +13,9 @@ public class Video {
 
 	private static int COUNTER = 1;
 
-	public Video() {
-	}
-
-	public Video(String url, String title, List<Tag> tags, int userId) {
+	public Video(String url, String title, List<Tag> tags, int userId) throws Exception {
+		if (url.isBlank() || title.isBlank() || tags.size() == 0)
+			throw new Exception("--> T'has deixat algún camp en blanc. <--");
 		this.url = url;
 		this.title = title;
 		this.tags = tags;

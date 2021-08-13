@@ -2,6 +2,7 @@ package application;
 
 import java.util.List;
 
+import domain.User;
 import domain.Video;
 import persistance.VideoRepository;
 
@@ -9,8 +10,8 @@ public class VideoController {
 
 	private VideoRepository videoRepository = new VideoRepository();
 
-	public List<Video> getVideos() {
-		return videoRepository.getAllVideos();
+	public List<Video> getUserVideos(User user) {
+		return videoRepository.getVideosByUserId(user.getId());
 	}
 
 	public Video getVideo(int id) {

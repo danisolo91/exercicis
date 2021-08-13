@@ -1,38 +1,38 @@
 package view;
 
-import java.util.Scanner;
-
 import application.UserController;
 import domain.User;
+import utilities.NotEmptyScanner;
 
 public class AppView {
 
-	private static final Scanner SCAN = new Scanner(System.in);
+	private static final NotEmptyScanner SCAN = new NotEmptyScanner();
 	private static UserController userController = new UserController();
 	private static UserView userView = new UserView();
 	private static boolean run = true;
 
 	public static void main(String[] args) {
-		showLogo();
+		logo();
+
 		User loggedUser;
 
 		while (run) {
 			loggedUser = userController.getLoggedUser();
 			if (loggedUser == null) {
-				showMainMenu();
+				mainMenu();
 			} else {
-				userView.showMainMenu();
+				userView.mainMenu();
 			}
 		}
 	}
 
-	private static void showLogo() {
+	private static void logo() {
 		System.out.println("=======================================");
 		System.out.println("|              VIDEO APP              |");
 		System.out.println("=======================================");
 	}
 
-	private static void showMainMenu() {
+	private static void mainMenu() {
 		System.out.println("\nQuè vols fer?\na) Crear un nou usuari\nb) Iniciar sessió\nc) Sortir de l'aplicació");
 		String option = SCAN.nextLine();
 

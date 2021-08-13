@@ -4,10 +4,9 @@ public class Tag {
 
 	private String text;
 
-	public Tag() {
-	}
-
-	public Tag(String text) {
+	public Tag(String text) throws Exception {
+		if (text.isBlank())
+			throw new Exception("--> El tag no pot estar buit. <--");
 		this.text = text;
 	}
 

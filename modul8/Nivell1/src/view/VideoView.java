@@ -1,20 +1,21 @@
 package view;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-import Utilities.Utils;
+import application.TagController;
 import application.UserController;
 import application.VideoController;
 import domain.Tag;
 import domain.User;
 import domain.Video;
+import utilities.NotEmptyScanner;
+import utilities.Utils;
 
 public class VideoView {
 
-	private static final Scanner SCAN = new Scanner(System.in);
+	private static final NotEmptyScanner SCAN = new NotEmptyScanner();
 	private VideoController videoController = new VideoController();
+	private TagController tagController = new TagController();
 	private UserController userController = new UserController();
 
 	public void uploadVideo() {
@@ -22,36 +23,24 @@ public class VideoView {
 
 		System.out.println("\nIntrodueix el títol del video:");
 		String title = SCAN.nextLine();
-		List<Tag> tags = getTags();
+		System.out.println("\nIntrodueix tags separats amb espais en blanc:");
+		List<Tag> tags = tagController.parseTags(SCAN.nextLine());
 		String url = Utils.makeUrl(title);
 		int userId = loggedUser.getId();
-
-		Video video = new Video(url, title, tags, userId);
-
-		videoController.uploadVideo(video);
-
-		System.out.println("--> Video pujat amb èxit. <--");
+		
+		try {
+			Video video = new Video(url, title, tags, userId);
+			videoController.uploadVideo(video);
+			System.out.println("--> Video pujat amb èxit. <--");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	public List<Tag> getTags() {
-		List<Tag> tags = new ArrayList<Tag>();
-		boolean keepAdding = true;
-		String tag;
-
-		do {
-			System.out.println("Introdueix tag:");
-			tag = SCAN.nextLine();
-			tags.add(new Tag(tag));
-
-			System.out.println("Vols seguir introduint tags? [S/N]: ");
-			keepAdding = Utils.scanBoolean();
-		} while (keepAdding);
-
-		return tags;
-	}
-
-	public void showVideos() {
-		List<Video> videos = videoController.getVideos();
+	public void listVideos() {
+		User loggedUser = userController.getLoggedUser();
+		List<Video> videos = videoController.getUserVideos(loggedUser);
 
 		System.out.println("\nELS MEUS VIDEOS:");
 		if (videos.size() > 0) {
