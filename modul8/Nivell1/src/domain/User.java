@@ -16,7 +16,7 @@ public class User {
 	public User() {
 	}
 
-	public User(String username, String firstname, String lastname, String password) throws Exception {
+	public User(String firstname, String lastname, String username, String password) throws Exception {
 		if(username.isBlank() || firstname.isBlank() || lastname.isBlank() || password.isBlank())
 			throw new Exception("--> T'has deixat algún camp en blanc. <--");
 		this.username = username;

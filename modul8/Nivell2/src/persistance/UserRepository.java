@@ -24,6 +24,18 @@ public class UserRepository {
 	public void addUser(User user) {
 		users.add(user);
 	}
+	
+	public User getUserByUsername(String username) {
+		User user = null;
+
+		for (User u : users) {
+			if (u.getUsername().equals(username)) {
+				user = u;
+			}
+		}
+
+		return user;
+	}
 
 	public User getUserByUsernameAndPassword(String username, String password) {
 		User user = null;

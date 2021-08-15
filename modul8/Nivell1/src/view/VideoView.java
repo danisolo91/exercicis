@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import application.TagController;
@@ -24,10 +25,17 @@ public class VideoView {
 		System.out.println("\nIntrodueix el títol del video:");
 		String title = SCAN.nextLine();
 		System.out.println("\nIntrodueix tags separats amb espais en blanc:");
-		List<Tag> tags = tagController.parseTags(SCAN.nextLine());
+		List<Tag> tags = new ArrayList<Tag>();
+
+		try {
+			tags = tagController.parseTags(SCAN.nextLine());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
 		String url = Utils.makeUrl(title);
 		int userId = loggedUser.getId();
-		
+
 		try {
 			Video video = new Video(url, title, tags, userId);
 			videoController.uploadVideo(video);

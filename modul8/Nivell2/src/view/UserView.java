@@ -58,21 +58,26 @@ public class UserView {
 
 	public void createUser() {
 		System.out.println("\nCREAR UN USUARI NOU");
-		System.out.println("Introdueix un nom d'usuari únic:");
-		String username = SCAN.nextLine();
 		System.out.println("Introdueix el teu nom:");
 		String firstname = SCAN.nextLine();
 		System.out.println("Introdueix el teu cognom:");
 		String lastname = SCAN.nextLine();
+		System.out.println("Introdueix un nom d'usuari únic:");
+		String username = SCAN.nextLine();
 		System.out.println("Introdueix una contrasenya:");
 		String password = SCAN.nextLine();
 
 		try {
-			User user = new User(username, firstname, lastname, password);
-			userController.addUser(user);
-			System.out.println("--> Usuari creat amb èxit. <--");
+			User user = new User(firstname, lastname, username, password);
+
+			if (!userController.isUniqueUser(user)) {
+				throw new Exception("--> El nom d'usuari introduït ja existeix. <--");
+			} else {
+				userController.addUser(user);
+				System.out.println("--> Usuari creat amb èxit. <--");
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 	}
 }

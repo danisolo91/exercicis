@@ -30,6 +30,16 @@ public class UserController {
 	public User getLoggedUser() {
 		return loggedUser;
 	}
+	
+	public boolean isUniqueUser(User user) {
+		boolean result = true;
+		User u = userRepository.getUserByUsername(user.getUsername());
+
+		if (u != null)
+			result = false;
+
+		return result;
+	}
 
 	public void login(String username, String password) throws Exception {
 		User user = userRepository.getUserByUsernameAndPassword(username, password);
