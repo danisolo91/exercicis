@@ -7,7 +7,7 @@ import domain.User;
 
 public class UserRepository {
 
-	private static List<User> users;
+	private List<User> users;
 
 	public UserRepository() {
 		users = new ArrayList<User>();
