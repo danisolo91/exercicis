@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Date;
+
 import domain.Video;
 import domain.VideoStatus;
 
@@ -23,25 +25,36 @@ public class VideoStatusUpdater extends Thread {
 	}
 
 	public void run() {
-		VideoStatus[] status = VideoStatus.values();
-
-		for (VideoStatus s : status) {
-			if (s.equals(VideoStatus.UPLOADING)) {
-				try {
-					VideoStatusUpdater.sleep(10000);
+		long timeElapsed;
+		Date now;
+		boolean run = true;
+		
+		while(run) {
+			now = new Date();
+			timeElapsed = now.getTime() - video.getUploadDate().getTime();
+			
+			if(timeElapsed <= 10000) {
+				if(video.getStatus() != VideoStatus.UPLOADING) {
+					video.setStatus(VideoStatus.UPLOADING);
+					videoController.updateVideo(video);
+				}
+			} else if(timeElapsed > 10000 && timeElapsed <= 20000) {
+				if(video.getStatus() != VideoStatus.VERIFYING) {
 					video.setStatus(VideoStatus.VERIFYING);
 					videoController.updateVideo(video);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
 				}
-			} else if (s.equals(VideoStatus.VERIFYING)) {
-				try {
-					VideoStatusUpdater.sleep(10000);
+			} else if(timeElapsed > 20000) {
+				if(video.getStatus() != VideoStatus.PUBLIC) {
 					video.setStatus(VideoStatus.PUBLIC);
 					videoController.updateVideo(video);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
+					run = false;
 				}
+			}
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}
