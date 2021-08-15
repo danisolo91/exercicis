@@ -16,7 +16,7 @@ public class MediaPlayerCounter extends Thread {
 			try {
 				Thread.sleep(1000);
 
-				// Tornem a comprovar s'estat per si ha vanviat durant l'espera...
+				// Tornem a comprovar l'estat per si ha canviat durant l'espera...
 				if (state.getStatus().equals(MediaPlayerStatus.PLAYING)) {
 					state.incrementCounter();
 				}

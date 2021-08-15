@@ -7,7 +7,7 @@ import domain.Video;
 
 public class VideoRepository {
 
-	private static List<Video> videos;
+	private List<Video> videos;
 
 	public VideoRepository() {
 		videos = new ArrayList<Video>();
