@@ -25,8 +25,8 @@ public class AppView {
 
 			switch (opcio.toLowerCase()) {
 			case "a":
-				System.out.println("\nIntrodueix potència objectiu:");
 				try {
+					System.out.println("\nIntrodueix potència objectiu:");
 					potenciaObjectiu = SCAN.nextInt();
 					SCAN.nextLine(); // consumim token \n
 
