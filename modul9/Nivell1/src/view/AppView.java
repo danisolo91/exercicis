@@ -20,7 +20,7 @@ public class AppView {
 		while (executa) {
 			coetView.estatActualDelsCoets();
 
-			System.out.println("\nQuè vols fer?\na)Introduïr potència objectiu\nb)Sortir");
+			System.out.println("\nQuè vols fer?\na)Volar a potència objectiu\nb)Sortir");
 			opcio = SCAN.nextLine();
 
 			switch (opcio.toLowerCase()) {
