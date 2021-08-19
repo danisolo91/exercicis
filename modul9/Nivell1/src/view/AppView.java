@@ -31,8 +31,7 @@ public class AppView {
 					SCAN.nextLine(); // consumim token \n
 
 					if (potenciaObjectiu >= 0) {
-						coetController.asignarPotenciaObjectiu(potenciaObjectiu);
-						coetController.activarPropulsors();
+						coetController.assolirPotenciaObjectiu(potenciaObjectiu);
 
 						// Esperem fins que tots els propulsors arribin a la seva potència objectiu
 						while (coetController.propulsorsActius()) {

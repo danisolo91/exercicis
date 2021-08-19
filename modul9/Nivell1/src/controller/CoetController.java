@@ -17,6 +17,11 @@ public class CoetController {
 	public List<Coet> getCoets() {
 		return coetRepository.getAllCoets();
 	}
+	
+	public void assolirPotenciaObjectiu(int potenciaObjectiu) {
+		asignarPotenciaObjectiu(potenciaObjectiu);
+		activarPropulsors();
+	}
 
 	public void asignarPotenciaObjectiu(int potenciaObjectiu) {
 		for (Coet c : coetRepository.getAllCoets()) {
