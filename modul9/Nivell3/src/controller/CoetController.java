@@ -62,12 +62,13 @@ public class CoetController {
 	}
 
 	/**
-	 * Mètode per interrumpir PropulsorThread
+	 * Mètode per interrumpir els PropulsorThread en cas de que hi hagin
 	 */
 	public void interrumpirPropulsorThreads() {
 		if (this.propulsorThreads.size() > 0) {
 			for (PropulsorThread pt : this.propulsorThreads) {
-				pt.interrupt();
+				while (!pt.isInterrupted())
+					pt.interrupt();
 			}
 			this.propulsorThreads.clear();
 		}

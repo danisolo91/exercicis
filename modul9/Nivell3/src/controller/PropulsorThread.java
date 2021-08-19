@@ -34,6 +34,7 @@ public class PropulsorThread extends Thread {
 					Thread.sleep(500); // Per poder veure en consola com va accelerant...
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+					return;
 				}
 				potenciaActual = propulsor.getPotenciaActual();
 				potenciaObjectiu = propulsor.getPotenciaObjectiu();
@@ -49,6 +50,7 @@ public class PropulsorThread extends Thread {
 					Thread.sleep(500); // Per poder veure en consola com va frenant...
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+					return;
 				}
 				potenciaActual = propulsor.getPotenciaActual();
 				potenciaObjectiu = propulsor.getPotenciaObjectiu();
