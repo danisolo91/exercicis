@@ -16,7 +16,7 @@ public class CoetView {
 
 		marc = new JFrame();
 
-		marc.setBounds(200, 100 * counter, 670, 200); // coord, size
+		marc.setBounds(100 * counter, 100 * counter, 670, 205); // coord, size
 		marc.setTitle("Panell de control del coet " + coet.getId());
 		marc.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		marc.setVisible(true);
