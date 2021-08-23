@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "29633a77-6b26-4669-92b1-d8dfac0cd849",
+		"name": "Entorns",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "{{IP}}:{{port}}/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{IP}}:{{port}}/",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{IP}}:{{port}}/?name=Daniel",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{IP}}:{{port}}/?name=Daniel",
+					"host": [
+						"{{IP}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Daniel"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

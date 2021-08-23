@@ -1,0 +1,31 @@
+{
+	"info": {
+		"_postman_id": "45123c2a-16ed-4347-8789-f4a0a1c01072",
+		"name": "Països",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://restcountries.eu/rest/v2/lang/es",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://restcountries.eu/rest/v2/lang/es",
+					"protocol": "https",
+					"host": [
+						"restcountries",
+						"eu"
+					],
+					"path": [
+						"rest",
+						"v2",
+						"lang",
+						"es"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
