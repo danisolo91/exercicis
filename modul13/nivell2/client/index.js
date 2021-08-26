@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
-  const URL = "http://localhost:8080/v1";
-
   const addForm = document.getElementById('add');
   const idField = document.getElementById('id');
   const nameField = document.getElementById('name');
