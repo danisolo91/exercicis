@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   filterForm.addEventListener('submit', filterEmployees);
 
   const jobs = getJobs();
-  let jobState = '';
+  let filterState = '';
 
   loadJobFields();
   loadEmployeesTable();
@@ -37,12 +37,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
       employee.id = idField.value;
       updateEmployee(employee).then(res => {
         console.log(res);
-        loadEmployeesTable(jobState);
+        loadEmployeesTable(filterState);
       });
     } else {
       addEmployee(employee).then(res => {
         console.log(res);
-        loadEmployeesTable(jobState);
+        loadEmployeesTable(filterState);
       });
     }
 
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const id = e.target.dataset.id
     deleteEmployee(id).then(data => {
       console.log(data);
-      loadEmployeesTable(jobState);
+      loadEmployeesTable(filterState);
     });
   }
 
@@ -111,8 +111,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   */
   function filterEmployees(e) {
     e.preventDefault();
-    jobState = jobFilterField.value;
-    loadEmployeesTable(jobState);
+    filterState = jobFilterField.value;
+    loadEmployeesTable(filterState);
   }
 
   /** Actualitza les dades de la taula d'empleats, que poden
