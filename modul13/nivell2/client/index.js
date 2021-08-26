@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
+  /** Elements del formulari d'empleats */
   const addForm = document.getElementById('add');
   const idField = document.getElementById('id');
   const nameField = document.getElementById('name');
@@ -7,20 +8,23 @@ document.addEventListener("DOMContentLoaded", function (event) {
   const addBtn = document.getElementById('addBtn');
   const addLegend = document.getElementById('addLegend');
 
+  /** Elements del formulari de filtre */
   const filterForm = document.getElementById('filter');
   const jobFilterField = document.getElementById('job2');
 
-  const messageDiv = document.getElementById('message');
+  /** El cos de la taula de registres */
   const recordsTable = document.getElementById('records');
 
+  /** Events */
   addForm.addEventListener('submit', saveEmployee);
   filterForm.addEventListener('submit', filterEmployees);
 
+  /** Guardem les feines i definim un estat inicial del filtre */
   const jobs = getJobs();
   let filterState = '';
 
   loadJobFields();
-  loadEmployeesTable();
+  loadEmployeesTable(filterState);
 
   /** Crea o modifica un empleat */
   function saveEmployee(e) {
