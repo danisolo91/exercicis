@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Employees App</title>
+  </head>
+  <body>
+    <h1>Employees App</h1>
+    <div id="message"></div>
+    <form id="add">
+      <fieldset>
+        <legend id="addLegend">Afegir un nou treballador</legend>
+        <input type="text" name="id" id="id" value="" hidden disabled />
+        <input type="text" name="name" id="name" value="" placeholder="Nom del treballador" required/>
+        <select name="job" id="job1"></select>
+        <input type="submit" id="addBtn" value="Afegir" />
+      </fieldset>
+    </form>
+    <br>
+    <form id="filter">
+      <fieldset>
+        <legend>Filtrar per feina</legend>
+        <select name="job" id="job2">
+          <option value="">-- Sense filtre --</option>
+        </select>
+        <input type="submit" value="Filtrar">
+      </fieldset>
+    </form>
+    <br>
+    <table>
+        <tr>
+          <th>ID</td>
+          <th>Nom</td>
+          <th>Feina</td>
+          <th>Salari</td>
+          <th>Accions</td>
+        </tr>
+        <tbody id="records"></tbody>
+    </table>
+
+    <script src="api.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
