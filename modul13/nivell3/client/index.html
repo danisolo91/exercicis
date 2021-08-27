@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Employees App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  </head>
+  <body class="pt-4 pb-5">
+    <div class="container">
+      <h1 class="mb-4">Employees App</h1>
+      <div class="card mb-4">
+        <h5 class="card-header" id="add-legend">Afegir un nou treballador</h5>
+        <div class="card-body">
+          <form id="add">
+            <input type="text" name="id" id="id" value="" hidden disabled />
+            <div class="row g-3">
+              <div class="col-auto">
+                <input class="form-control" type="text" name="name" id="name" value="" placeholder="Nom del treballador" required/>
+              </div>
+              <div class="col-auto">
+                <select class="form-select" name="job" id="job1"></select>
+              </div>
+              <div class="col-auto">
+                <button class="btn btn-primary" type="submit" id="add-btn"><i class="bi bi-plus"></i> Afegir</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card mb-4">
+        <h5 class="card-header">Filtrar per feina</h5>
+        <div class="card-body">
+          <form id="filter">
+            <div class="row g-3">
+              <div class="col-auto">
+                <select class="form-select" name="job" id="job2">
+                  <option value="">-- Sense filtre --</option>
+                </select>
+              </div>
+              <div class="col-auto">
+                <button class="btn btn-primary" type="submit"><i class="bi bi-filter"></i> Filtrar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">ID</td>
+              <th scope="col">Nom</td>
+              <th scope="col">Feina</td>
+              <th scope="col">Salari</td>
+              <th scope="col" class="text-center">Accions</td>
+            </tr>
+          </thead>
+          <tbody id="records"></tbody>
+      </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="api.js"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
