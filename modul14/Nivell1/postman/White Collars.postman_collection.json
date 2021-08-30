@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "b8ab16d4-3ac6-4206-821e-85f190dbeec2",
+		"name": "White Collars",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/v1/shops",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/shops",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"shops"
+					]
+				},
+				"description": "Llistar botigues botigues"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/v1/shops",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Botiga 1\",\n    \"maxCapacity\": 10\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/shops",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"shops"
+					]
+				},
+				"description": "Crear botiga"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/v1/shops/1/pictures",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"La Gioconda\",\n    \"price\": 10000,\n    \"entryDate\": \"2021-08-30T17:17:25.666+00:00\",\n    \"author\": \"Leonardo da Vinci\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/v1/shops/1/pictures",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"shops",
+						"1",
+						"pictures"
+					]
+				},
+				"description": "Afegir un quadre"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/v1/shops/1/pictures",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/shops/1/pictures",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"shops",
+						"1",
+						"pictures"
+					]
+				},
+				"description": "Retorna els quadres d'una botiga."
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/v1/shops/1/pictures",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/shops/1/pictures",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"shops",
+						"1",
+						"pictures"
+					]
+				},
+				"description": "Eliminar tots els quadres d'una botiga."
+			},
+			"response": []
+		}
+	]
+}
