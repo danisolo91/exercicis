@@ -77,6 +77,11 @@ public class ShopController {
 			return ResponseEntity.notFound().build();
 		}
 
+		if (shop.get().getPictures().size() == shop.get().getMaxCapacity()) {
+			return ResponseEntity.badRequest().body(
+					Collections.singleton("Ja no hi caben més quadres. La botiga està a la seva capacitat màxima."));
+		}
+
 		picture.setShop(shop.get());
 		pictureService.addPicture(picture);
 
@@ -84,7 +89,7 @@ public class ShopController {
 	}
 
 	/**
-	 * Retora una llista de tots els quadres d'una botiga.
+	 * Retora una llista amb tots els quadres d'una botiga.
 	 * 
 	 * @param id
 	 * @return
