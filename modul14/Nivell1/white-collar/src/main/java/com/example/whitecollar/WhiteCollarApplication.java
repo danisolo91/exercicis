@@ -18,7 +18,9 @@ public class WhiteCollarApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/v1/shops/**").allowedOrigins("*").allowedMethods("GET", "POST", "DELETE");
+				registry.addMapping("/v1/shops/**")
+				.allowedOrigins("*")
+				.allowedMethods("GET", "POST", "DELETE");
 			}
 		};
 	}

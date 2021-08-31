@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -25,7 +26,11 @@ public class Picture {
 	@Column(name = "name")
 	private String name;
 
+	@Min(value = 0, message = "El preu ha de ser un nombre positiu")
 	private double price;
+	
+	@Column(nullable = true)
+	private String author;
 
 	@NotNull(message = "La data d'entrada del quadre es obligatòria")
 	@Column(name = "entry_date")
@@ -38,9 +43,6 @@ public class Picture {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "shop_id", referencedColumnName = "id")
 	private Shop shop;
-
-	@Column(nullable = true)
-	private String author;
 
 	public Picture() {
 	}
