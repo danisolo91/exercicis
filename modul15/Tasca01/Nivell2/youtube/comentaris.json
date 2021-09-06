@@ -1,0 +1,1 @@
+{"_id":{"$numberInt":"1"},"usuariId":{"$numberInt":"1"},"videoId":{"$numberInt":"1"},"likes":{"$numberInt":"12"},"dislikes":{"$numberInt":"3"},"text":"M'agrada molt aquest video","dataCreacio":"Mon Sep 06 2021 15:31:41 GMT+0200"}

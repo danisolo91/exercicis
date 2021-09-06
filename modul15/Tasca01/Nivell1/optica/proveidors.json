@@ -1,0 +1,1 @@
+{"_id":{"$oid":"6135c90b06db5c18e40a27f5"},"nom":"El millor proveidor SL","telefon":"999-333-555","fax":"987-654-321","nif":"B12345678","adresa":{"carrer":"Muntaner","numero":{"$numberInt":"34"},"pis":{"$numberInt":"1"},"porta":"B","cp":{"$numberInt":"8023"},"ciutat":"Barcelona","pais":"España"}}

@@ -1,0 +1,2 @@
+{"_id":{"$numberInt":"1"},"nom":"Coca Cola","descripcio":"Beguda refrescant","imatge":"/imatges/cocacola.png","preu":{"$numberDouble":"1.45"},"categoria":"Beguda"}
+{"_id":{"$numberInt":"2"},"nom":"Pizza quattro formaggi","descripcio":"Pizza amb quatre tipus de formatges","imatge":"/imatges/pizza-quattro-formaggi.png","preu":{"$numberDouble":"9.95"},"categoria":"Pizza"}

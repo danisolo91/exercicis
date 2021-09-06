@@ -1,0 +1,1 @@
+{"_id":{"$numberInt":"1"},"nom":"Daniel","cognoms":"Solomon","telefon":"666-555-444","adresa":{"carrer":"Juan XXIII","numero":{"$numberInt":"15"},"pis":"Atic","porta":"B","cp":"08019","localitat":"Santa Coloma","provincia":"Barcelona"}}
