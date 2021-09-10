@@ -2,6 +2,7 @@ package com.ds.joc.entity;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -21,19 +22,16 @@ public class Player {
 	private String username;
 	private String password;
 	private Date createdAt;
-	private List<Game> games = new ArrayList<Game>();
 	private List<Ranking> rankings = new ArrayList<Ranking>();
 
 	public Player() {
 	}
 
-	public Player(String id, String username, String password, Date createdAt, List<Game> games,
-			List<Ranking> rankings) {
+	public Player(String id, String username, String password, Date createdAt, List<Ranking> rankings) {
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.createdAt = createdAt;
-		this.games = games;
 		this.rankings = rankings;
 	}
 
@@ -69,20 +67,41 @@ public class Player {
 		this.createdAt = createdAt;
 	}
 
-	public List<Game> getGames() {
-		return games;
-	}
-
-	public void setGames(List<Game> games) {
-		this.games = games;
-	}
-
 	public List<Ranking> getRankings() {
 		return rankings;
 	}
 
 	public void setRankings(List<Ranking> rankings) {
 		this.rankings = rankings;
+	}
+
+	/** Actualitza el ranking del jugador a un tipus de joc */
+	public void updateRanking(Ranking ranking, GameType gameType) {
+		for (int i = 0; i < rankings.size(); i++) {
+			if (rankings.get(i).getGameType().equals(gameType)) {
+				rankings.set(i, ranking);
+				return;
+			}
+		}
+		rankings.add(ranking);
+	}
+
+	/** Elimina el ranking d'un determinat tipus de joc */
+	public void deleteRanking(GameType gameType) {
+		Iterator<Ranking> it = rankings.iterator();
+		while (it.hasNext()) {
+			Ranking ranking = it.next();
+			if (ranking.getGameType().equals(gameType)) {
+				it.remove();
+				break;
+			}
+		}
+	}
+
+	@Override
+	public String toString() {
+		return "Player [id=" + id + ", username=" + username + ", password=" + password + ", createdAt=" + createdAt
+				+ ", rankings=" + rankings + "]";
 	}
 
 }

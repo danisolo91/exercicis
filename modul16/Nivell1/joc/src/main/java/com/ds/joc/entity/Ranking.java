@@ -1,6 +1,5 @@
 package com.ds.joc.entity;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -13,25 +12,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "rankings")
 public class Ranking {
 
-	@Id
-	private String id;
 	private GameType gameType;
 	private double successRate;
-	private String playerId;
 
-	public Ranking(String id, GameType gameType, double successRate, String playerId) {
-		this.id = id;
+	public Ranking() {
+	}
+
+	public Ranking(GameType gameType, double successRate) {
 		this.gameType = gameType;
 		this.successRate = successRate;
-		this.playerId = playerId;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
 	}
 
 	public GameType getGameType() {
@@ -50,18 +39,9 @@ public class Ranking {
 		this.successRate = successRate;
 	}
 
-	public String getPlayerId() {
-		return playerId;
-	}
-
-	public void setPlayerId(String playerId) {
-		this.playerId = playerId;
-	}
-
 	@Override
 	public String toString() {
-		return "Ranking [id=" + id + ", gameType=" + gameType + ", successRate=" + successRate + ", playerId="
-				+ playerId + "]";
+		return "Ranking [gameType=" + gameType + ", successRate=" + successRate + "]";
 	}
 
 }

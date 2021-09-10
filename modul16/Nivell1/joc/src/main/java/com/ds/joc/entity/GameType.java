@@ -1,7 +1,9 @@
 package com.ds.joc.entity;
 
 /**
- * Enumerable que conté els tipus de jocs disponibles i les seves característiques
+ * Enumerable que conté els tipus de jocs disponibles i les seves
+ * característiques
+ * 
  * @author daniel
  *
  */
@@ -18,6 +20,19 @@ public enum GameType {
 		this.pointsToWin = pointsToWin;
 		this.numberOfDices = numberOfDices;
 		this.description = description;
+	}
+
+	/**
+	 * Verifica si existeix un tipus de joc que s'anomeni igual que el tipus rebut
+	 * per paràmetre.
+	 */
+	public static boolean contains(String type) {
+		for (GameType g : GameType.values()) {
+			if (g.name().equals(type)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public String getName() {
@@ -51,4 +66,5 @@ public enum GameType {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 }

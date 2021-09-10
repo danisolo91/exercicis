@@ -21,12 +21,16 @@ public class Game {
 	@Id
 	private String id;
 	private GameType type;
-	private List<DiceValue> diceValues = new ArrayList<DiceValue>();
+	private List<Integer> diceValues = new ArrayList<Integer>();
 	private boolean winner;
 	private Date createdAt;
 	private String playerId;
 
-	public Game(String id, GameType type, List<DiceValue> diceValues, boolean winner, Date createdAt, String playerId) {
+	public Game() {
+
+	}
+
+	public Game(String id, GameType type, List<Integer> diceValues, boolean winner, Date createdAt, String playerId) {
 		this.id = id;
 		this.type = type;
 		this.diceValues = diceValues;
@@ -51,11 +55,11 @@ public class Game {
 		this.type = type;
 	}
 
-	public List<DiceValue> getDiceValues() {
+	public List<Integer> getDiceValues() {
 		return diceValues;
 	}
 
-	public void setDiceValues(List<DiceValue> diceValues) {
+	public void setDiceValues(List<Integer> diceValues) {
 		this.diceValues = diceValues;
 	}
 
