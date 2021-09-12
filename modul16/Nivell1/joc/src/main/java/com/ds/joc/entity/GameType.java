@@ -9,7 +9,7 @@ package com.ds.joc.entity;
  */
 public enum GameType {
 	GAMEONE("SumaSet", 7, 2, "Per guanyar, la suma dels dos daus ha de donar set.");
-
+	
 	private String name;
 	private int pointsToWin;
 	private int numberOfDices;

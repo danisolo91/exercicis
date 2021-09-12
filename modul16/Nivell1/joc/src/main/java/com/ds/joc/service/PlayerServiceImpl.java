@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ds.joc.entity.GameType;
 import com.ds.joc.entity.Player;
+import com.ds.joc.entity.Ranking;
 import com.ds.joc.repository.PlayerRepository;
 
 @Service
@@ -43,6 +45,21 @@ public class PlayerServiceImpl implements PlayerService {
 	@Override
 	public void deletePlayer(String playerId) {
 		playerRepository.deleteById(playerId);
+	}
+
+	@Override
+	public List<Ranking> getGameAvgSuccessRate() {
+		return playerRepository.findGameAvgSuccessRate();
+	}
+
+	@Override
+	public Player getGameLoser(GameType gameType) {
+		return playerRepository.findGameLoser(gameType);
+	}
+
+	@Override
+	public Player getGameWinner(GameType gameType) {
+		return playerRepository.findGameWinner(gameType);
 	}
 
 }

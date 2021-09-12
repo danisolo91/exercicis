@@ -86,7 +86,7 @@ public class PlayerController {
 	public ResponseEntity<?> playGame(@PathVariable String id) {
 		GameType gameType = GameType.GAMEONE;
 		Optional<Player> player = playerService.getPlayerById(id);
-		
+
 		if (player.isEmpty()) {
 			return ResponseEntity.badRequest().body("El jugador no existeix");
 		}
@@ -128,6 +128,29 @@ public class PlayerController {
 		playerService.updatePlayer(player.get());
 
 		return ResponseEntity.ok("S'han eliminat totes les jugades de " + player.get().getId());
+	}
+
+	/**
+	 * Retorna el percentatge mig d'èxit de tots els jugadors a cadascún dels tipus
+	 * de jocs
+	 */
+	@GetMapping("/ranking")
+	public ResponseEntity<?> getRanking() {
+		return ResponseEntity.ok(playerService.getGameAvgSuccessRate());
+	}
+	
+	/** Retorna el jugador amb pitjor percentatge d'èxit a un determinat joc */
+	@GetMapping("/ranking/loser")
+	public ResponseEntity<?> getLoser() {
+		GameType gameType = GameType.GAMEONE;
+		return ResponseEntity.ok(playerService.getGameLoser(gameType));
+	}
+	
+	/** Retorna el jugador amb millor percentatge d'èxit a un determinat joc */
+	@GetMapping("/ranking/winner")
+	public ResponseEntity<?> getWinner() {
+		GameType gameType = GameType.GAMEONE;
+		return ResponseEntity.ok(playerService.getGameWinner(gameType));
 	}
 
 	/**
