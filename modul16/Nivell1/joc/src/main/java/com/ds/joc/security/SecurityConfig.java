@@ -25,8 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 		.antMatchers("/login").permitAll()
 		.antMatchers(HttpMethod.POST, "/players").permitAll() // crear nous usuaris
-		.antMatchers(HttpMethod.GET, "/players").permitAll() // veure tots els usuaris
-		.antMatchers(HttpMethod.GET, "/players/ranking/**").permitAll() // veure rankings
 		.anyRequest().authenticated();
 		http.addFilterBefore(new CustomAuthorizationFilter(jwtSigningKey), UsernamePasswordAuthenticationFilter.class);
 	}
