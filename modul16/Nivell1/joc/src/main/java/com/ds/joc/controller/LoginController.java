@@ -44,7 +44,6 @@ public class LoginController {
 		if (username == null || username.isBlank()) {
 			try {
 				user = userService.createUser(null, null, Arrays.asList(Role.PLAYER));
-				user.setAnonymous(true);
 				token = getJwtToken(user);
 			} catch (Exception e) {
 				return ResponseEntity.badRequest().body(e.getMessage());
