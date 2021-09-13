@@ -17,29 +17,29 @@ public class GameController {
 	private GameService gameService;
 
 	/** Retorna totes les jugades d'un jugador */
-	public List<Game> getPlayerGames(String playerId) {
-		return gameService.getPlayerGames(playerId);
+	public List<Game> getUserGames(String userId) {
+		return gameService.getUserGames(userId);
 	}
 
 	/** Elimina totes les jugades d'un jugador a un tipus de joc */
-	public void deletePlayerGames(String playerId, GameType gameType) {
-		gameService.deletePlayerGames(playerId, gameType);
+	public void deleteUserGames(String userId, GameType gameType) {
+		gameService.deleteUserGames(userId, gameType);
 	}
 
 	/**
 	 * Mètode que guarda la jugada d'un usuari a un tipus de joc.
 	 * 
-	 * @param playerId
+	 * @param userId
 	 * @param gameType
 	 * @return
 	 */
-	public void play(String playerId, GameType gameType) {
+	public void play(String userId, GameType gameType) {
 		Game game = new Game();
 		game.setType(gameType);
 		game.setDiceValues(getRandomDiceValues(gameType));
 		game.setWinner(hasWon(gameType, game.getDiceValues()));
 		game.setCreatedAt(new Date());
-		game.setPlayerId(playerId);
+		game.setUserId(userId);
 		gameService.addGame(game);
 	}
 

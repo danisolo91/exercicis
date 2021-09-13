@@ -9,8 +9,8 @@ import com.ds.joc.entity.GameType;
 
 public interface GameRepository extends MongoRepository<Game, String> {
 	
-	public List<Game> findByPlayerId(String playerId);
+	public List<Game> findByUserId(String userId);
 	
-	public void deleteByPlayerIdAndType(String playerId, GameType type);
+	public void deleteByUserIdAndType(String userId, GameType type);
 	
 }

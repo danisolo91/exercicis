@@ -16,8 +16,8 @@ public class GameServiceImpl implements GameService {
 	private GameRepository gameRepository;
 	
 	@Override
-	public List<Game> getPlayerGames(String playerId) {
-		return gameRepository.findByPlayerId(playerId);
+	public List<Game> getUserGames(String userId) {
+		return gameRepository.findByUserId(userId);
 	}
 
 	@Override
@@ -26,8 +26,8 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
-	public void deletePlayerGames(String playerId, GameType gameType) {
-		gameRepository.deleteByPlayerIdAndType(playerId, gameType);
+	public void deleteUserGames(String userId, GameType gameType) {
+		gameRepository.deleteByUserIdAndType(userId, gameType);
 	}
 
 }

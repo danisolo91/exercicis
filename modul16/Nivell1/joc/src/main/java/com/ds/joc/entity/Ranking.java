@@ -3,7 +3,7 @@ package com.ds.joc.entity;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Aquesta classe guarda el percentatge mig d'exit d'un jugador a un tipus de
+ * Aquesta classe guarda el percentatge mig d'exit d'un usuari a un tipus de
  * joc determinat
  * 
  * @author daniel

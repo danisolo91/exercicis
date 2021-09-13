@@ -7,10 +7,10 @@ import com.ds.joc.entity.GameType;
 
 public interface GameService {
 
-	public List<Game> getPlayerGames(String playerId);
+	public List<Game> getUserGames(String userId);
 
 	public Game addGame(Game game);
 	
-	public void deletePlayerGames(String playerId, GameType gameType);
+	public void deleteUserGames(String userId, GameType gameType);
 
 }

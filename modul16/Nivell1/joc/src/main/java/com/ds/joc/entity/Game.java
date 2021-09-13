@@ -8,7 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * Aquesta classe representa la jugada d'un jugador a un determinat tipus de
+ * Aquesta classe representa la jugada d'un usuari a un determinat tipus de
  * joc. Guarda els valors dels daus així com el resultat (si ha sigut guanyador
  * o no)
  * 
@@ -24,19 +24,19 @@ public class Game {
 	private List<Integer> diceValues = new ArrayList<Integer>();
 	private boolean winner;
 	private Date createdAt;
-	private String playerId;
+	private String userId;
 
 	public Game() {
 
 	}
 
-	public Game(String id, GameType type, List<Integer> diceValues, boolean winner, Date createdAt, String playerId) {
+	public Game(String id, GameType type, List<Integer> diceValues, boolean winner, Date createdAt, String userId) {
 		this.id = id;
 		this.type = type;
 		this.diceValues = diceValues;
 		this.winner = winner;
 		this.createdAt = createdAt;
-		this.playerId = playerId;
+		this.userId = userId;
 	}
 
 	public String getId() {
@@ -79,18 +79,18 @@ public class Game {
 		this.createdAt = createdAt;
 	}
 
-	public String getPlayerId() {
-		return playerId;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setPlayerId(String playerId) {
-		this.playerId = playerId;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	@Override
 	public String toString() {
 		return "Game [id=" + id + ", type=" + type + ", diceValues=" + diceValues + ", winner=" + winner
-				+ ", createdAt=" + createdAt + ", playerId=" + playerId + "]";
+				+ ", createdAt=" + createdAt + ", userId=" + userId + "]";
 	}
 
 }
