@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 	 * username, es considera usuari anònim. Els usuaris anònims reben el nom
 	 * "Anònim" i com a username el propi ID per poder trobar-lo a la BBDD.
 	 */
-	public User createUser(String username, String password, String fullname, List<Role> roles) throws Exception {
+	public User createUser(String username, String password, List<Role> roles) throws Exception {
 		User user = null;
 
 		// Usuaris registrats

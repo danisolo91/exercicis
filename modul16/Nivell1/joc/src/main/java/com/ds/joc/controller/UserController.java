@@ -43,14 +43,14 @@ public class UserController {
 
 	@PostMapping
 	public ResponseEntity<?> addUser(@RequestParam(required = false) String username,
-			@RequestParam(required = false) String password, @RequestParam(required = false) String fullname) {
+			@RequestParam(required = false) String password) {
 		if (username == null || username.isBlank()) {
 			return ResponseEntity.badRequest()
 					.body("Per jugar com un usuari anònim, has de fer POST a /login sense cap credencial.");
 		}
 
 		try {
-			userService.createUser(username, password, fullname, Arrays.asList(Role.PLAYER));
+			userService.createUser(username, password, Arrays.asList(Role.PLAYER));
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}

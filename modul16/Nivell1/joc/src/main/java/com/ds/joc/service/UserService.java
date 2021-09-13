@@ -10,7 +10,7 @@ import com.ds.joc.entity.Role;
 
 public interface UserService {
 	
-	public User createUser(String username, String password, String fullname, List<Role> roles) throws Exception;
+	public User createUser(String username, String password, List<Role> roles) throws Exception;
 	
 	public User addUser(User user);
 	
