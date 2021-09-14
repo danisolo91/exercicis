@@ -48,12 +48,16 @@ public class UserController {
 			return ResponseEntity.badRequest()
 					.body("Per jugar com un usuari anònim, has de fer POST a /login sense cap credencial.");
 		}
-
-		try {
-			userService.createUser(username, password, Arrays.asList(Role.PLAYER));
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+		
+		if (password == null || password.isBlank()) {
+			return ResponseEntity.badRequest().body("Has d'introduïr una contrasenya.");
 		}
+		
+		if (userService.usernameExists(username)) {
+			return ResponseEntity.badRequest().body("El nom d'usuari introduït ja existeix.");
+		}
+		
+		userService.addUser(new User(username, password, Arrays.asList(Role.PLAYER)));
 
 		return ResponseEntity.created(null).body("Usuari creat amb èxit");
 	}

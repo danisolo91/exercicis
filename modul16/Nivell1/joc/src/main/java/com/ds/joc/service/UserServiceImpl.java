@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.ds.joc.entity.GameType;
 import com.ds.joc.entity.User;
 import com.ds.joc.entity.Ranking;
-import com.ds.joc.entity.Role;
 import com.ds.joc.repository.UserRepository;
 
 @Service
@@ -21,32 +20,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
-	/**
-	 * Mètode que s'encarrega de crear nous usuaris. Si no es proporciona un
-	 * username, es considera usuari anònim. Els usuaris anònims reben el nom
-	 * "Anònim" i com a username el propi ID per poder trobar-lo a la BBDD.
-	 */
-	public User createUser(String username, String password, List<Role> roles) throws Exception {
-		User user = null;
-
-		// Usuaris registrats
-		if (username != null && !username.isBlank()) {
-			if (password == null || password.isBlank()) {
-				throw new Exception("Has d'introduïr una contrasenya.");
-			}
-			if (usernameExists(username)) {
-				throw new Exception("El nom d'usuari introduït ja existeix.");
-			}
-			user = addUser(new User(username, password, roles));
-		}
-		// Usuaris anonims
-		else {
-			user = addUser(new User(roles));
-		}
-
-		return user;
-	}
 
 	@Override
 	public User addUser(User user) {

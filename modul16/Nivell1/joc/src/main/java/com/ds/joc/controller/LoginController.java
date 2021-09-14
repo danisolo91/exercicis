@@ -30,7 +30,7 @@ public class LoginController {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 	@Value("${appSecurity.jwtSigningKey}")
 	private String jwtSigningKey;
 
@@ -43,7 +43,7 @@ public class LoginController {
 		// Si no rebem un nom d'usuari creem un usuari anònim
 		if (username == null || username.isBlank()) {
 			try {
-				user = userService.createUser(null, null, Arrays.asList(Role.PLAYER));
+				user = userService.addUser(new User(Arrays.asList(Role.PLAYER)));
 				token = getJwtToken(user);
 			} catch (Exception e) {
 				return ResponseEntity.badRequest().body(e.getMessage());
@@ -59,27 +59,25 @@ public class LoginController {
 				}
 			}
 		}
-		
-		if(token == null) {
+
+		if (token == null) {
 			return ResponseEntity.badRequest().body("Credencials errònies.");
 		}
 
 		user.setToken(token);
-		
+
 		return ResponseEntity.ok(user);
 	}
 
 	/** Retorna un token JWT */
 	private String getJwtToken(User user) {
-		String token = Jwts.builder()
-				.setId("Joc de daus")
-				.setSubject(user.getId()) // guardem l'ID com a subject  <<<-----
-				.claim("roles", user.getRoles().stream()
-						.map(r -> new SimpleGrantedAuthority(r.name()))
-						.collect(Collectors.toList()))
+		String token = Jwts.builder().setId("Joc de daus").setSubject(user.getId()) // guardem l'ID com a subject
+																					// <<<-----
+				.claim("roles",
+						user.getRoles().stream().map(r -> new SimpleGrantedAuthority(r.name()))
+								.collect(Collectors.toList()))
 				.setExpiration(new Date(System.currentTimeMillis() + 30 * 60 * 1000)) // 30 minuts
-				.signWith(SignatureAlgorithm.HS512, jwtSigningKey.getBytes())
-				.compact();
+				.signWith(SignatureAlgorithm.HS512, jwtSigningKey.getBytes()).compact();
 		return token;
 	}
 }

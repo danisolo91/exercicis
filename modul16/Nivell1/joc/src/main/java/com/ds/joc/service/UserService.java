@@ -6,12 +6,9 @@ import java.util.Optional;
 import com.ds.joc.entity.GameType;
 import com.ds.joc.entity.User;
 import com.ds.joc.entity.Ranking;
-import com.ds.joc.entity.Role;
 
 public interface UserService {
-	
-	public User createUser(String username, String password, List<Role> roles) throws Exception;
-	
+		
 	public User addUser(User user);
 	
 	public boolean usernameExists(String username);
