@@ -42,12 +42,8 @@ public class LoginController {
 
 		// Si no rebem un nom d'usuari creem un usuari anònim
 		if (username == null || username.isBlank()) {
-			try {
-				user = userService.addUser(new User(Arrays.asList(Role.PLAYER)));
-				token = getJwtToken(user);
-			} catch (Exception e) {
-				return ResponseEntity.badRequest().body(e.getMessage());
-			}
+			user = userService.addUser(new User(Arrays.asList(Role.PLAYER)));
+			token = getJwtToken(user);
 		}
 		// Si rebem un nom d'usuari el busquem a la BD
 		else {
