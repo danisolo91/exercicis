@@ -34,14 +34,24 @@ public class GameController {
 	 * @param gameType
 	 * @return
 	 */
-	public void play(UUID userId, GameType gameType) {
+	public Game play(UUID userId, GameType gameType) {
 		Game game = new Game();
 		game.setType(gameType);
 		game.setDiceValues(getRandomDiceValues(gameType));
 		game.setWinner(hasWon(gameType, game.getDiceValues()));
 		game.setCreatedAt(new Date());
 		game.setUserId(userId);
-		gameService.addGame(game);
+		return gameService.addGame(game);
+	}
+	
+	/** Retorna les opcions de GameType en format String */
+	public String gameTypesToString() {
+		String result = "";
+		for(int i = 0; i < GameType.values().length; i++) {
+			result += GameType.values()[i] + ", ";
+		}
+		result = result.substring(0, result.length() - 2);
+		return result;
 	}
 
 	/**
@@ -56,8 +66,20 @@ public class GameController {
 
 		switch (gameType) {
 		case GAMEONE:
-			int sum = diceValues.stream().reduce(0, (a, b) -> a + b);
-			if (sum == gameType.getPointsToWin()) {
+			int sum1 = diceValues.stream().reduce(0, (a, b) -> a + b);
+			if (sum1 == gameType.getPointsToWin()) {
+				result = true;
+			}
+			break;
+		case GAMETWO:
+			int sum2 = diceValues.stream().reduce(0, (a, b) -> a + b);
+			if (sum2 % 2 == gameType.getPointsToWin()) {
+				result = true;
+			}
+			break;
+		case GAMETHREE:
+			int mul1 = diceValues.stream().reduce(1, (a, b) -> a * b);
+			if (mul1 <= gameType.getPointsToWin()) {
 				result = true;
 			}
 			break;

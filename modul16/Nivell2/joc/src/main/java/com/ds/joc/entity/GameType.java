@@ -8,7 +8,9 @@ package com.ds.joc.entity;
  *
  */
 public enum GameType {
-	GAMEONE("SumaSet", 7, 2, "Per guanyar, la suma dels dos daus ha de donar set.");
+	GAMEONE("Suma set", 7, 2, "Per guanyar, la suma dels dos daus ha de donar set."),
+	GAMETWO("Parells", 0, 2, "Per guanyar, la suma dels dos daus ha de donar un nombre parell."),
+	GAMETHREE("Blackjack", 21, 3, "Per guanyar, al multiplicar el valor dels tres daus no ha de donar més de 21.");
 	
 	private String name;
 	private int pointsToWin;
@@ -66,5 +68,5 @@ public enum GameType {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	
 }

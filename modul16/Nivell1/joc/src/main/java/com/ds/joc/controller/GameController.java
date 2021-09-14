@@ -33,14 +33,14 @@ public class GameController {
 	 * @param gameType
 	 * @return
 	 */
-	public void play(String userId, GameType gameType) {
+	public Game play(String userId, GameType gameType) {
 		Game game = new Game();
 		game.setType(gameType);
 		game.setDiceValues(getRandomDiceValues(gameType));
 		game.setWinner(hasWon(gameType, game.getDiceValues()));
 		game.setCreatedAt(new Date());
 		game.setUserId(userId);
-		gameService.addGame(game);
+		return gameService.addGame(game);
 	}
 
 	/**

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ds.joc.entity.Game;
 import com.ds.joc.entity.GameType;
 import com.ds.joc.entity.User;
 import com.ds.joc.entity.Ranking;
@@ -46,7 +47,8 @@ public class UserController {
 	public ResponseEntity<?> addUser(@RequestParam(required = false) String username,
 			@RequestParam(required = false) String password, @RequestParam(required = false) boolean hideUsername) {
 		if (username == null || username.isBlank()) {
-			return ResponseEntity.badRequest().body("El username es obligatori. Si no el vols mostrar, afegeix una clau 'hideUsername' amb el valor 'true'. ");
+			return ResponseEntity.badRequest().body(
+					"El username es obligatori. Si no el vols mostrar, afegeix al body la clau 'hideUsername' amb el valor 'true'. ");
 		}
 
 		if (password == null || password.isBlank()) {
@@ -58,11 +60,11 @@ public class UserController {
 		}
 
 		User user = new User(username, password, Arrays.asList(Role.PLAYER));
-		
-		if(hideUsername) {
+
+		if (hideUsername) {
 			user.setHideUsername(true);
 		}
-		
+
 		userService.addUser(user);
 
 		return ResponseEntity.created(null).body("Usuari creat amb èxit");
@@ -99,8 +101,13 @@ public class UserController {
 	}
 
 	@PostMapping("/{id}/games")
-	public ResponseEntity<?> playGame(@PathVariable UUID id) {
-		GameType gameType = GameType.GAMEONE;
+	public ResponseEntity<?> playGame(@PathVariable UUID id, @RequestParam(required = false) GameType gameType) {
+		if (gameType == null) {
+			return ResponseEntity.badRequest().body(
+					"Has d'introduïr al body la clau 'gameType' amb el tipus de joc que vols jugar. Els jocs disponibles son: "
+							+ gameController.gameTypesToString());
+		}
+
 		Optional<User> user = userService.getUserById(id);
 
 		if (user.isEmpty()) {
@@ -112,7 +119,7 @@ public class UserController {
 		}
 
 		// Executem un joc i afegim el resultat a la llista de jocs
-		gameController.play(user.get().getId(), gameType);
+		Game game = gameController.play(user.get().getId(), gameType);
 
 		// Obtenim i actualitzem el ranking del usuari a aquest tipus de joc
 		Ranking ranking = rankingController.getRanking(gameController.getUserGames(user.get().getId()), gameType);
@@ -120,7 +127,7 @@ public class UserController {
 
 		userService.updateUser(user.get());
 
-		return ResponseEntity.created(null).body("Resultats del joc guardats amb èxit");
+		return ResponseEntity.created(null).body(game);
 	}
 
 	@GetMapping("/{id}/games")
@@ -139,8 +146,13 @@ public class UserController {
 	}
 
 	@DeleteMapping("/{id}/games")
-	public ResponseEntity<?> deleteUserGames(@PathVariable UUID id) {
-		GameType gameType = GameType.GAMEONE;
+	public ResponseEntity<?> deleteUserGames(@PathVariable UUID id, @RequestParam(required = false) GameType gameType) {
+		if (gameType == null) {
+			return ResponseEntity.badRequest().body(
+					"Has d'introduïr al body la clau 'gameType' amb el tipus de joc que vols jugar. Els jocs disponibles son: "
+							+ gameController.gameTypesToString());
+		}
+
 		Optional<User> user = userService.getUserById(id);
 
 		if (user.isEmpty()) {
@@ -155,7 +167,7 @@ public class UserController {
 		user.get().deleteRanking(gameType);
 		userService.updateUser(user.get());
 
-		return ResponseEntity.ok("S'han eliminat totes les jugades de " + user.get().getId());
+		return ResponseEntity.ok("S'han eliminat totes les jugades de " + user.get().getId() + " al joc " + gameType);
 	}
 
 	/**
@@ -169,15 +181,23 @@ public class UserController {
 
 	/** Retorna el usuari amb pitjor percentatge d'èxit a un determinat joc */
 	@GetMapping("/ranking/loser")
-	public ResponseEntity<?> getLoser() {
-		GameType gameType = GameType.GAMEONE;
+	public ResponseEntity<?> getLoser(@RequestParam(required = false) GameType gameType) {
+		if (gameType == null) {
+			return ResponseEntity.badRequest().body(
+					"Has d'introduïr a la URL el paràmetre 'gameType' amb el tipus de joc que vols jugar. Els jocs disponibles son: "
+							+ gameController.gameTypesToString());
+		}
 		return ResponseEntity.ok(userService.getGameLoser(gameType));
 	}
 
 	/** Retorna el usuari amb millor percentatge d'èxit a un determinat joc */
 	@GetMapping("/ranking/winner")
-	public ResponseEntity<?> getWinner() {
-		GameType gameType = GameType.GAMEONE;
+	public ResponseEntity<?> getWinner(@RequestParam(required = false) GameType gameType) {
+		if (gameType == null) {
+			return ResponseEntity.badRequest().body(
+					"Has d'introduïr a la URL el paràmetre 'gameType' amb el tipus de joc que vols jugar. Els jocs disponibles son: "
+							+ gameController.gameTypesToString());
+		}
 		return ResponseEntity.ok(userService.getGameWinner(gameType));
 	}
 

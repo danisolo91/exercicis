@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ds.joc.entity.Game;
 import com.ds.joc.entity.GameType;
 import com.ds.joc.entity.User;
 import com.ds.joc.entity.Ranking;
@@ -106,7 +107,7 @@ public class UserController {
 		}
 
 		// Executem un joc i afegim el resultat a la llista de jocs
-		gameController.play(user.get().getId(), gameType);
+		Game game = gameController.play(user.get().getId(), gameType);
 
 		// Obtenim i actualitzem el ranking del usuari a aquest tipus de joc
 		Ranking ranking = rankingController.getRanking(gameController.getUserGames(user.get().getId()), gameType);
@@ -114,7 +115,7 @@ public class UserController {
 
 		userService.updateUser(user.get());
 
-		return ResponseEntity.created(null).body("Resultats del joc guardats amb èxit");
+		return ResponseEntity.created(null).body(game);
 	}
 
 	@GetMapping("/{id}/games")
