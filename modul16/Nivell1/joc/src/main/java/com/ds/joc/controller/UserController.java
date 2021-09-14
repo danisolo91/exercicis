@@ -63,8 +63,7 @@ public class UserController {
 	}
 
 	@PutMapping
-	public ResponseEntity<?> updateUser(@RequestParam String id, @RequestParam String username,
-			@RequestParam(required = false) String fullname) {
+	public ResponseEntity<?> updateUser(@RequestParam String id, @RequestParam String username) {
 		Optional<User> user = userService.getUserById(id);
 
 		if (user.isEmpty()) {
