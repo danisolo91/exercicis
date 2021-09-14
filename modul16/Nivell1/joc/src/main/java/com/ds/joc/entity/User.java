@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -29,10 +30,23 @@ public class User {
 	private List<Ranking> rankings = new ArrayList<Ranking>();
 	private List<Role> roles = new ArrayList<Role>();
 
+	/** Constructor per defecte */
+	public User() {}
+	
+	/** Constructor per usuaris registrats */
 	public User(String username, String password, List<Role> roles) {
 		this.username = username;
 		this.password = password;
 		this.anonymous = false;
+		this.createdAt = new Date();
+		this.roles = roles;
+	}
+	
+	/** Constructor per a usuaris anonims */
+	public User(List<Role> roles) {
+		this.username = "Anònim";
+		this.password = UUID.randomUUID().toString();
+		this.anonymous = true;
 		this.createdAt = new Date();
 		this.roles = roles;
 	}

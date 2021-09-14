@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +21,6 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
-	@Value("${appSecurity.anonUserPass}")
-	private String anonUserPass;
 
 	/**
 	 * Mètode que s'encarrega de crear nous usuaris. Si no es proporciona un
@@ -46,10 +42,7 @@ public class UserServiceImpl implements UserService {
 		}
 		// Usuaris anonims
 		else {
-			user = addUser(new User(username, anonUserPass, roles));
-			user.setUsername("Anònim");
-			user.setAnonymous(true);
-			updateUser(user);
+			user = addUser(new User(roles));
 		}
 
 		return user;
