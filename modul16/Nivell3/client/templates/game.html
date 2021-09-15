@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Joc de daus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="../style.css" />
+  </head>
+  <body class="bg-light">
+    <div class="container mb-5">
+      <h1 class="my-4 text-center">Joc de daus</h1>
+      <div class="card">
+        <div class="card-header"><button type="button" id="go-back" class="btn btn-primary btn-sm me-2"><i class="bi bi-arrow-left"></i></button>Joc</div>
+        <div class="card-body mb-3">
+          <div class="col mb-4">
+            <h3 class="card-title">Suma set</h3>
+            <p class="card-text">Per guanyar, la suma dels dos daus ha de donar 7.</p>
+          </div>
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="play-tab" data-bs-toggle="tab" data-bs-target="#play" type="button" role="tab" aria-controls="play" aria-selected="true">Jugar</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="my-stats-tab" data-bs-toggle="tab" data-bs-target="#my-stats" type="button" role="tab" aria-controls="my-stats" aria-selected="false">Estadístiques</button>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade py-3 show active" id="play" role="tabpanel" aria-labelledby="play-tab">
+              <div class="row row-cols-auto justify-content-center mt-4">
+                <div class="col mb-4 text-center">
+                  <button class="btn btn-success">Llançar daus</button>
+                </div>
+                <div class="col-7 mb-4" style="min-width: 300px;">
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <div class="row text-center">
+                        <div class="col-3"><i class="me-3 bi bi-dice-3"></i><i class="bi bi-dice-4"></i></div>
+                        <div class="col-4 text-success">Has guanyat!</div>
+                        <div class="col-5 text-muted fst-italic">15/09/2021 11:28</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <div class="row text-center">
+                        <div class="col-3"><i class="bi bi-dice-2 me-3"></i><i class="bi bi-dice-6"></i></div>
+                        <div class="col-4 text-danger">Has perdut!</div>
+                        <div class="col-5 text-muted fst-italic">15/09/2021 11:28</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card mb-3">
+                    <div class="card-body">
+                      <div class="row text-center">
+                        <div class="col-3"><i class="bi bi-dice-3 me-3"></i><i class="bi bi-dice-4"></i></div>
+                        <div class="col-4 text-success">Has guanyat!</div>
+                        <div class="col-5 text-muted fst-italic">15/09/2021 11:28</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade py-3" id="my-stats" role="tabpanel" aria-labelledby="my-stats-tab">
+              <div class="row row-cols-auto justify-content-evenly mt-4">
+                <div class="col mb-3 text-center">
+                  <h5>El teu percentatge d'èxit:</h5>
+                  <span class="fs-1">18.33 %</span>
+                </div>
+                <div class="col">
+                  <div class="card" style="width: 15rem; font-size: 12px;">
+                    <div class="card-header">Estadístiques generals</div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item"><strong>Èxit: </strong><span id="generalWinningRate">25.66 %</span></li>
+                      <li class="list-group-item"><strong>Millor jugador: </strong><span id="bestPlayerName">Daniel</span> <span id="bestPlayerRatio">(43.21 %)</span></li>
+                      <li class="list-group-item"><strong>Pitjor jugador: </strong><span id="worstPlayerName">N/A</span> <span id="worstPlayerRatio"></span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="index.js"></script>
+  </body>
+</html>
