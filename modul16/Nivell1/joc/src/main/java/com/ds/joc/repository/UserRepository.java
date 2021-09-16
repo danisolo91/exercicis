@@ -21,8 +21,8 @@ public interface UserRepository extends MongoRepository<User, String> {
 	public List<Ranking> findGameAvgSuccessRate();
 
 	@Aggregation(pipeline = {
-			"{ $match: { 'rankings.gameType': ?0 } }",
-		    "{ $unwind: '$rankings' }", 
+			"{ $unwind: '$rankings' }",
+		    "{ $match: { 'rankings.gameType': ?0 } }",
 		    "{ $sort: { 'rankings.successRate': 1 } }",
 		    "{ $limit: 1 }",
 		    "{ $project: { username: 1, password: 1, createdAt: 1, rankings: ['$rankings'] } }"
@@ -30,8 +30,8 @@ public interface UserRepository extends MongoRepository<User, String> {
 	public User findGameLoser(GameType gameType);
 	
 	@Aggregation(pipeline = {
-			"{ $match: { 'rankings.gameType': ?0 } }",
-		    "{ $unwind: '$rankings' }", 
+			"{ $unwind: '$rankings' }",
+		    "{ $match: { 'rankings.gameType': ?0 } }",
 		    "{ $sort: { 'rankings.successRate': -1 } }",
 		    "{ $limit: 1 }",
 		    "{ $project: { username: 1, password: 1, createdAt: 1, rankings: ['$rankings'] } }"
