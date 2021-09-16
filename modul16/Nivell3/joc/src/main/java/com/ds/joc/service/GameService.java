@@ -8,7 +8,7 @@ import com.ds.joc.entity.GameType;
 
 public interface GameService {
 
-	public List<Game> getUserGames(UUID userId);
+	public List<Game> getUserGames(UUID userId, GameType gameType);
 
 	public Game addGame(Game game);
 	

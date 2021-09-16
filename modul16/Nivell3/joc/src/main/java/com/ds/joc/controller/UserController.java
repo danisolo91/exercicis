@@ -125,7 +125,8 @@ public class UserController {
 		Game game = gameController.play(user.get().getId(), gameType);
 
 		// Obtenim i actualitzem el ranking del usuari a aquest tipus de joc
-		Ranking ranking = rankingController.getRanking(gameController.getUserGames(user.get().getId()), gameType);
+		Ranking ranking = rankingController.getRanking(gameController.getUserGames(user.get().getId(), gameType),
+				gameType);
 		user.get().updateRanking(ranking, gameType);
 
 		userService.updateUser(user.get());
@@ -134,7 +135,7 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}/games")
-	public ResponseEntity<?> getUserGames(@PathVariable UUID id) {
+	public ResponseEntity<?> getUserGames(@PathVariable UUID id, @RequestParam GameType gameType) {
 		Optional<User> user = userService.getUserById(id);
 
 		if (user.isEmpty()) {
@@ -145,7 +146,7 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 		}
 
-		return ResponseEntity.ok(gameController.getUserGames(user.get().getId()));
+		return ResponseEntity.ok(gameController.getUserGames(user.get().getId(), gameType));
 	}
 
 	@DeleteMapping("/{id}/games")
@@ -170,8 +171,7 @@ public class UserController {
 		user.get().deleteRanking(gameType);
 		userService.updateUser(user.get());
 
-		return ResponseEntity
-				.ok(mapMessage("S'han eliminat totes les jugades de " + user.get().getId() + " al joc " + gameType));
+		return ResponseEntity.ok(mapMessage("S'han eliminat totes les teves jugades al joc " + gameType.getName()));
 	}
 
 	/**
@@ -181,6 +181,21 @@ public class UserController {
 	@GetMapping("/ranking")
 	public ResponseEntity<?> getRanking() {
 		return ResponseEntity.ok(userService.getGameAvgSuccessRate());
+	}
+
+	@GetMapping("/ranking/{id}")
+	public ResponseEntity<?> getUserRanking(@PathVariable UUID id) {
+		Optional<User> user = userService.getUserById(id);
+
+		if (user.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+
+		if (!isAuthenticated(user.get())) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+		}
+
+		return ResponseEntity.ok(user.get().getRankings());
 	}
 
 	/** Retorna el usuari amb pitjor percentatge d'èxit a un determinat joc */

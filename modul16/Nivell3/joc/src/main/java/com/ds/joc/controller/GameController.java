@@ -41,9 +41,9 @@ public class GameController {
 		return ResponseEntity.ok(games);
 	}
 
-	/** Retorna totes les jugades d'un jugador */
-	public List<Game> getUserGames(UUID userId) {
-		return gameService.getUserGames(userId);
+	/** Retorna totes les jugades d'un jugador a un determinat tipus de joc */
+	public List<Game> getUserGames(UUID userId, GameType gameType) {
+		return gameService.getUserGames(userId, gameType);
 	}
 
 	/** Elimina totes les jugades d'un jugador a un tipus de joc */

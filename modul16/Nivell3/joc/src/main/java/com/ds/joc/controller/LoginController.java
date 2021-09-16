@@ -76,11 +76,12 @@ public class LoginController {
 
 	/** Retorna un token JWT */
 	private String getJwtToken(User user) {
-		String token = Jwts.builder().setId("Joc de daus").setSubject(user.getId().toString()) // guardem l'ID com a
-																								// subject <<<-----
-				.claim("roles",
-						user.getRoles().stream().map(r -> new SimpleGrantedAuthority(r.name()))
-								.collect(Collectors.toList()))
+		String token = Jwts.builder()
+				.setId("Joc de daus")
+				.setSubject(user.getId().toString()) // guardem l'ID com a subject <<<-----
+				.claim("roles", user.getRoles().stream()
+						.map(r -> new SimpleGrantedAuthority(r.name()))
+						.collect(Collectors.toList()))
 				.setExpiration(new Date(System.currentTimeMillis() + 30 * 60 * 1000)) // 30 minuts
 				.signWith(SignatureAlgorithm.HS512, jwtSigningKey.getBytes()).compact();
 		return token;

@@ -20,6 +20,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
   // Game view elements
   const gameView = document.getElementById('gameView');
   const goBackBtn = document.getElementById('goBackBtn');
+  const gameTitleH5 = document.getElementById('gameTitle');
+  const gameDescriptionP = document.getElementById('gameDescription');
+  const gameplaysDiv = document.getElementById('gameplays');
+  const throwDicesBtn = document.getElementById('throwDicesBtn');
+  const deleteGamesBtn = document.getElementById('deleteGames');
+  const statsTabBtn = document.getElementById('stats-tab');
+  const userWinningRateSpan = document.getElementById('userWinningRate');
+  const generalWinningRateSpan = document.getElementById('generalWinningRate');
+  const bestPlayerSpan = document.getElementById('bestPlayer');
+  const worstPlayerSpan = document.getElementById('worstPlayer');
 
   // Toast elements
   const toastElem = document.getElementById('liveToast');
@@ -38,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   const appState = {
     loggedUser: {},
     games: [],
-    selectedGame: ''
+    selectedGame: {}
   }
 
   /* ---- EVENT LISTENERS ----------------------------------------------- */
@@ -48,6 +58,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
   registerLoginBtn.addEventListener('click', () => showView(views.LOGIN));
   registerForm.addEventListener('submit', register);
   goBackBtn.addEventListener('click', () => showView(views.HOMEPAGE));
+  throwDicesBtn.addEventListener('click', throwDices);
+  deleteGamesBtn.addEventListener('click', deleteUserGameplays);
+  statsTabBtn.addEventListener('click', loadStatistics);
+
 
 
   /* ---- FUNCTIONS ------------------------------------------------------ */
@@ -81,7 +95,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   function logout(e) {
     appState.loggedUser = {};
     appState.games = [];
-    appState.selectedGame = '';
+    appState.selectedGame = {};
+    while (availableGamesDiv.lastChild) availableGamesDiv.lastChild.remove();
     showView(views.LOGIN);
   }
 
@@ -93,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         res.forEach(game => {
           appState.games.push(game);
           const gameCard = getGameCard(game, () => {
-            appState.selectedGame = game.type;
+            appState.selectedGame = game;
             showView(views.GAME);
           });
           availableGamesDiv.append(gameCard);
@@ -104,9 +119,124 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   // Carrega les dades dinàmiques de la game view
   function loadGameView() {
-    console.log("loadGameView");
+    gameTitleH5.textContent = appState.selectedGame.name;
+    gameDescriptionP.textContent = appState.selectedGame.description;
+    loadGameplays();
+    loadStatistics();
   }
 
+  // Carrega els gameplays del usuari logat
+  function loadGameplays() {
+    while (gameplaysDiv.lastChild) gameplaysDiv.lastChild.remove();
+    getUserGameplays(appState.loggedUser, appState.selectedGame.type).then(res => {
+      if (res.length > 0) {
+        res.forEach(gameplay => {
+          const gameplayCard = getGameplayCard(gameplay);
+          gameplaysDiv.append(gameplayCard);
+        });
+      } else {
+        gameplaysDiv.append('No tens cap jugada!');
+      }
+    });
+  }
+
+  // Executa una jugada a un joc determinat
+  function throwDices() {
+    playGame(appState.loggedUser, appState.selectedGame.type).then(res => {
+      const gameplayCard = getGameplayCard(res);
+      gameplaysDiv.prepend(gameplayCard);
+    });
+  }
+
+  // Elimina les jugades d'un usuari a un joc determinat
+  function deleteUserGameplays() {
+    deleteGameplays(appState.loggedUser, appState.selectedGame.type).then(res => {
+      showToast(res.message);
+      loadGameplays();
+    });
+  }
+
+  // carrega les estadístiques d'un joc
+  function loadStatistics() {
+    loadUserRanking();
+    loadGeneralStatistics();
+  }
+
+  // carrega el percentatge d'exit de l'usuari a un joc
+  function loadUserRanking() {
+    getUserRankings(appState.loggedUser).then(res => {
+      if (res.message) {
+        showToast(res.message);
+      } else {
+        appState.loggedUser.rankings = res;
+      }
+    }).then(res => {
+      let userRanking = appState.loggedUser.rankings
+        .filter(r => r.gameType === appState.selectedGame.type)
+        .map(r => r.successRate)[0];
+      if (userRanking != undefined) {
+        userWinningRateSpan.textContent = userRanking + ' %';
+      } else {
+        userWinningRateSpan.textContent = 'Sense dades'
+      }
+    });
+  }
+
+  // carrega les estadístiques generals
+  function loadGeneralStatistics() {
+    loadGameRanking();
+    loadBestPlayer();
+    loadWorstPlayer();
+  }
+
+  // carrega el percentatge d'exit general d'un joc
+  function loadGameRanking() {
+    getRankings(appState.loggedUser).then(res => {
+      let ranking = res.filter(r => r.gameType === appState.selectedGame.type)
+        .map(r => r.successRate)[0];
+      if (ranking != undefined) {
+        generalWinningRateSpan.textContent = (Math.round(ranking * 100) / 100) + ' %';
+      } else {
+        generalWinningRateSpan.textContent = 'N/A';
+      }
+    });
+  }
+
+  // carrega el millor jugador
+  function loadBestPlayer() {
+    getBestPlayer(appState.loggedUser, appState.selectedGame.type).then(res => {
+      if (res.message) {
+        showToast(res.message);
+      } else {
+        if (res != undefined) {
+          let ranking = res.rankings.filter(r => r.gameType === appState.selectedGame.type)
+            .map(r => r.successRate)[0];
+          bestPlayerSpan.textContent = res.username + ' (' + ranking + ' %)';
+        } else {
+          bestPlayerSpan.textContent = 'N/A';
+        }
+      }
+    });
+  }
+
+  // carrega el pitjor jugador
+  function loadWorstPlayer() {
+    getWorstPlayer(appState.loggedUser, appState.selectedGame.type).then(res => {
+      if (res.message) {
+        showToast(res.message);
+      } else {
+        if (res != undefined) {
+          let ranking = res.rankings.filter(r => r.gameType === appState.selectedGame.type)
+            .map(r => r.successRate)[0];
+          worstPlayerSpan.textContent = res.username + ' (' + ranking + ' %)';
+        } else {
+          worstPlayerSpan.textContent = 'N/A';
+        }
+      }
+    });
+  }
+
+  // mostra la vista rebuda per pantalla
   function showView(view) {
     switch (view.toLowerCase()) {
       case views.LOGIN:
@@ -140,6 +270,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 
+  // mostra un toas amb un missatge
   function showToast(message) {
     toastBody.textContent = message;
     toast.show();

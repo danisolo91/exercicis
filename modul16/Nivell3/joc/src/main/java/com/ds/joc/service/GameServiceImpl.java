@@ -17,8 +17,8 @@ public class GameServiceImpl implements GameService {
 	private GameRepository gameRepository;
 	
 	@Override
-	public List<Game> getUserGames(UUID userId) {
-		return gameRepository.findByUserId(userId);
+	public List<Game> getUserGames(UUID userId, GameType gameType) {
+		return gameRepository.findByUserIdAndType(userId, gameType);
 	}
 
 	@Override
