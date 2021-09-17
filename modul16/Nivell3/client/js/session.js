@@ -1,6 +1,4 @@
 
-/** Les cookies només funcionen si l'aplicació s'executa a un servidor web */
-
 // Decodifica el JWT
 function parseJwt (token) {
   var base64Url = token.split('.')[1];
@@ -12,7 +10,7 @@ function parseJwt (token) {
   return JSON.parse(jsonPayload);
 };
 
-// crea una cookie amb el nom de l'usuari i la data d'expiració del token
+// comprova si el token está expirat o no
 function isValidToken(token) {
   const decodedJwt = parseJwt(token);
   return (decodedJwt.exp > Date.now() / 1000);
