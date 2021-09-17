@@ -184,7 +184,7 @@ public class UserController {
 	public ResponseEntity<?> getLoser(@RequestParam(required = false) GameType gameType) {
 		if (gameType == null) {
 			return ResponseEntity.badRequest().body(
-					"Has d'introduïr a la URL el paràmetre 'gameType' amb el tipus de joc que vols jugar. Els jocs disponibles son: "
+					"Has d'introduïr -->> a la URL <<-- el paràmetre 'gameType' amb el tipus de joc. Els jocs disponibles son: "
 							+ gameController.gameTypesToString());
 		}
 		return ResponseEntity.ok(userService.getGameLoser(gameType));
@@ -195,7 +195,7 @@ public class UserController {
 	public ResponseEntity<?> getWinner(@RequestParam(required = false) GameType gameType) {
 		if (gameType == null) {
 			return ResponseEntity.badRequest().body(
-					"Has d'introduïr a la URL el paràmetre 'gameType' amb el tipus de joc que vols jugar. Els jocs disponibles son: "
+					"Has d'introduïr -->> a la URL <<-- el paràmetre 'gameType' amb el tipus de joc. Els jocs disponibles son: "
 							+ gameController.gameTypesToString());
 		}
 		return ResponseEntity.ok(userService.getGameWinner(gameType));
