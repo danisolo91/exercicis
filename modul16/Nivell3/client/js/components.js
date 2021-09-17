@@ -10,7 +10,11 @@ function getGameCard(game, changeView) {
   const cardImg = document.createElement('img');
   cardImg.classList = 'card-img-top';
   cardImg.alt = game.name;
-  cardImg.src = 'images/' + game.type.toLowerCase() + '.png';
+  if(window.location.protocol === 'file:') {
+    cardImg.src = 'images/' + game.type.toLowerCase() + '.png';
+  } else {
+    cardImg.src = '../images/' + game.type.toLowerCase() + '.png';
+  }
 
   const cardBodyDiv = document.createElement('div');
   cardBodyDiv.classList = 'card-body';
@@ -62,11 +66,15 @@ function getGameplayCard(gameResult) {
 
   const thirdColDiv = document.createElement('div');
   thirdColDiv.classList = 'col-5 text-muted fst-italic';
-  thirdColDiv.textContent = gameResult.createdAt;
+  thirdColDiv.textContent = formatDateTime(gameResult.createdAt);
 
   rowDiv.append(firstColDiv, secondColDiv, thirdColDiv);
   cardBodyDiv.append(rowDiv);
   cardDiv.append(cardBodyDiv);
 
   return cardDiv;
+}
+
+function formatDateTime(datetime) {
+  return (new Date(datetime)).toISOString().slice(0, 19).replace(/-/g, "/").replace("T", " ");
 }

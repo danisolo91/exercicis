@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (res.message) {
           showToast(res.message);
         }
+        e.target.password.value = '';
       })
       .catch(error => showToast(error));
   }
@@ -83,6 +84,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (res.message) {
           showToast(res.message);
         } else {
+          e.target.username.value = '';
+          e.target.password.value = '';
           appState.loggedUser = res;
           showView(views.HOMEPAGE);
         }
@@ -102,64 +105,103 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
   // Carrega les dades dinàmiques de la homepage 
   function loadHomepageView() {
-    usernameSpan.textContent = appState.loggedUser.username;
-    if (appState.games.length === 0) {
-      getAvailableGames(appState.loggedUser.token).then(res => {
-        res.forEach(game => {
-          appState.games.push(game);
-          const gameCard = getGameCard(game, () => {
-            appState.selectedGame = game;
-            showView(views.GAME);
+    if(isValidToken(appState.loggedUser.token)) {
+      usernameSpan.textContent = appState.loggedUser.username;
+      if (appState.games.length === 0) {
+        getAvailableGames(appState.loggedUser.token).then(res => {
+          res.forEach(game => {
+            appState.games.push(game);
+            const gameCard = getGameCard(game, () => {
+              appState.selectedGame = game;
+              showView(views.GAME);
+            });
+            availableGamesDiv.append(gameCard);
           });
-          availableGamesDiv.append(gameCard);
         });
-      });
+      }
+    } else {
+      showToast('La sessió ha expirat');
+      showView(views.LOGIN);
     }
   }
 
   // Carrega les dades dinàmiques de la game view
   function loadGameView() {
-    gameTitleH5.textContent = appState.selectedGame.name;
-    gameDescriptionP.textContent = appState.selectedGame.description;
-    loadGameplays();
-    loadStatistics();
+    if(isValidToken(appState.loggedUser.token)) {
+      gameTitleH5.textContent = appState.selectedGame.name;
+      gameDescriptionP.textContent = appState.selectedGame.description;
+      loadGameplays();
+      loadStatistics();
+    } else {
+      showToast('La sessió ha expirat');
+      showView(views.LOGIN);
+    }
   }
 
   // Carrega els gameplays del usuari logat
   function loadGameplays() {
-    while (gameplaysDiv.lastChild) gameplaysDiv.lastChild.remove();
-    getUserGameplays(appState.loggedUser, appState.selectedGame.type).then(res => {
-      if (res.length > 0) {
-        res.forEach(gameplay => {
-          const gameplayCard = getGameplayCard(gameplay);
-          gameplaysDiv.append(gameplayCard);
-        });
-      } else {
-        gameplaysDiv.append('No tens cap jugada!');
-      }
-    });
+    if(isValidToken(appState.loggedUser.token)) {
+      while (gameplaysDiv.lastChild) gameplaysDiv.lastChild.remove();
+      getUserGameplays(appState.loggedUser, appState.selectedGame.type).then(res => {
+        if (res.length > 0) {
+          res.forEach(gameplay => {
+            const gameplayCard = getGameplayCard(gameplay);
+            gameplaysDiv.append(gameplayCard);
+          });
+        } else {
+          gameplaysDiv.innerHTML = '<span id="noGameplays">No tens cap jugada!</span>';
+        }
+      });
+    } else {
+      showToast('La sessió ha expirat');
+      showView(views.LOGIN);
+    }
   }
 
   // Executa una jugada a un joc determinat
   function throwDices() {
-    playGame(appState.loggedUser, appState.selectedGame.type).then(res => {
-      const gameplayCard = getGameplayCard(res);
-      gameplaysDiv.prepend(gameplayCard);
-    });
+    if(isValidToken(appState.loggedUser.token)) {
+      removeNoGameplaysSpan();
+      playGame(appState.loggedUser, appState.selectedGame.type).then(res => {
+        const gameplayCard = getGameplayCard(res);
+        gameplaysDiv.prepend(gameplayCard);
+      });
+    } else {
+      showToast('La sessió ha expirat');
+      showView(views.LOGIN);
+    }
+  }
+
+  // Elimina el span noGameplays si existex
+  function removeNoGameplaysSpan() {
+    const noGameplaysSpan = document.getElementById('noGameplays');
+    if(noGameplaysSpan) {
+      noGameplaysSpan.remove();
+    }
   }
 
   // Elimina les jugades d'un usuari a un joc determinat
   function deleteUserGameplays() {
-    deleteGameplays(appState.loggedUser, appState.selectedGame.type).then(res => {
-      showToast(res.message);
-      loadGameplays();
-    });
+    if(isValidToken(appState.loggedUser.token)) {
+      deleteGameplays(appState.loggedUser, appState.selectedGame.type).then(res => {
+        showToast(res.message);
+        loadGameplays();
+      });
+    } else {
+      showToast('La sessió ha expirat');
+      showView(views.LOGIN);
+    }
   }
 
   // carrega les estadístiques d'un joc
   function loadStatistics() {
-    loadUserRanking();
-    loadGeneralStatistics();
+    if(isValidToken(appState.loggedUser.token)) {
+      loadUserRanking();
+      loadGeneralStatistics();
+    } else {
+      showToast('La sessió ha expirat');
+      showView(views.LOGIN);
+    }
   }
 
   // carrega el percentatge d'exit de l'usuari a un joc
@@ -252,18 +294,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
         gameView.classList = 'd-none';
         break;
       case views.HOMEPAGE:
-        loadHomepageView();
         loginView.classList = 'd-none';
         registerView.classList = 'd-none';
         homepageView.classList = '';
         gameView.classList = 'd-none';
+        loadHomepageView();
         break;
       case views.GAME:
-        loadGameView();
         loginView.classList = 'd-none';
         registerView.classList = 'd-none';
         homepageView.classList = 'd-none';
         gameView.classList = '';
+        loadGameView();
         break;
       default:
         console.log('setView error');
@@ -276,4 +318,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
     toast.show();
     setTimeout(function () { toast.hide(); }, 3000);
   }
+
 });

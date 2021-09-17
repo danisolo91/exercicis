@@ -1,5 +1,6 @@
 package com.ds.joc.controller;
 
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -82,7 +83,7 @@ public class LoginController {
 				.claim("roles", user.getRoles().stream()
 						.map(r -> new SimpleGrantedAuthority(r.name()))
 						.collect(Collectors.toList()))
-				.setExpiration(new Date(System.currentTimeMillis() + 30 * 60 * 1000)) // 30 minuts
+				.setExpiration(Date.from(ZonedDateTime.now().plusMinutes(5).toInstant()))
 				.signWith(SignatureAlgorithm.HS512, jwtSigningKey.getBytes()).compact();
 		return token;
 	}
